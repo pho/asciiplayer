@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Online Asciiplayer</title>
+		<link rel="stylesheet" type="text/css" href="asciinema-player.css" />
+		<script src="asciinema-player.js"></script>
+	</head>
+	<body>
+		<input type="text" id="url"></input><button onclick="handleUrl()">Load from url</button>
+		<input type="file" accept=".json" onchange="handleFiles(this.files)">
+		<div id="player-container" style="width: 100%"></div>
+		<script>
+			function handleUrl() {
+				url = document.getElementById("url").value
+				asciinema.player.js.CreatePlayer('player-container', url,{
+					autoPlay: true,
+					preload: true
+				});
+			}
+
+			function handleFiles(files) {
+				asciinema.player.js.CreatePlayer('player-container', window.URL.createObjectURL(files[0]),{
+					autoPlay: true,
+					preload: true
+				});
+			}
+
+			if (location.search.length > 2) {
+				document.getElementById("url").value = location.search.substr(1)
+				handleUrl()
+			}
+		</script>
+	</body>
+</html>
